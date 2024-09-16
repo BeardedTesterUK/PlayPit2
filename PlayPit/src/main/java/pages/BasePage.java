@@ -16,17 +16,19 @@ public class BasePage {
 
     protected WebDriver driver;
 
-    private By homeButton = By.id("gccLogoTop");
-    private By accessibilityPageLink = By.linkText("Accessibility");
-    private By aToZPageLink = By.linkText("A to Z");
-    private By contactUsPageLink = By.linkText("Contact Us");
-    private By cookiesPageLink = By.linkText("Cookies");
-    private By privacyPageLink = By.linkText("Privacy");
-    private By vacanciesPageLink = By.linkText("Vacancies");
+    private final By homeButton = By.id("gccLogoTop");
+    private final By accessibilityPageLink = By.linkText("Accessibility");
+    private final By aToZPageLink = By.linkText("A to Z");
+    private final By contactUsPageLink = By.linkText("Contact Us");
+    private final By cookiesPageLink = By.linkText("Cookies");
+    private final By privacyPageLink = By.linkText("Privacy");
+    private final By vacanciesPageLink = By.linkText("Vacancies");
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
     }
+
+    //BASIC FUNCTIONS
 
     protected WebElement find(By locator) {
         return driver.findElement(locator);
@@ -45,10 +47,28 @@ public class BasePage {
         find(locator).click();
     }
 
-    public int getListSize(By locator){
-        List<WebElement> allElementList = findAll(locator);
-        return allElementList.size();
+    public void selectRadioButtonOption(By radioElement, String option){
+        List<WebElement> radioButtons = driver.findElements(radioElement);
+        for (WebElement radioButton : radioButtons) {
+            if (radioButton.getText().equalsIgnoreCase(option)) {
+                radioButton.click();
+                break;
+            }
+        }
     }
+
+    public void selectLink(By locator, String expectedTitle){
+        waitForElementToBeClickable(locator);
+        click(locator);
+        confirmTitle(expectedTitle);
+    }
+
+    public void selectFromDropDown(By element, String option) {
+        Select dropdown = new Select(driver.findElement(element));
+        dropdown.selectByVisibleText(option);
+    }
+
+    //WAITS
 
     protected void waitForPage(String title) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -65,67 +85,56 @@ public class BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(target));
     }
 
-    public HomePage navigateTo(String url, String title) {
-        driver.navigate().to(url);
-        driver.switchTo().activeElement();
-        //waitForElementToBeClickable(cookies);
-        //click(cookies);
-        assertTrue(driver.getTitle().contains(title));
-        return new HomePage(driver);
-    }
+    //GETS
 
-    public void confirmTitle(String title) {
-        assertTrue(driver.getTitle().contains(title));
+    public int getListSize(By locator){
+        List<WebElement> allElementList = findAll(locator);
+        return allElementList.size();
     }
-
-    public HomePage clickReturnHomeButton() {
-        waitForElementToBeClickable(homeButton);
-        click(homeButton);
-            if(driver.getTitle().contains("Page not found"))
-                click(By.linkText("Glasgow home"));
-        confirmTitle("Glasgow - Glasgow City Council");
-        System.out.println("RETURNING HOME");
-        return new HomePage(driver);
-    }
-
 
     public String getText(By element) {
         return driver.findElement(element).getText();
     }
 
-    public AlphabetPage selectLetterSearch(String letter) {
+    //HEADER & FOOTER METHODS
+
+    public void clickReturnHomeButton() {
+        waitForElementToBeClickable(homeButton);
+        click(homeButton);
+        if(driver.getTitle().contains("Page not found"))
+            click(By.linkText("Glasgow home"));
+        confirmTitle("Glasgow - Glasgow City Council");
+        System.out.println("RETURNING HOME");
+    }
+
+    public void selectLetterSearch(String letter) {
         waitForElementToBeClickable(By.linkText(letter));
         click(By.linkText(letter));
         confirmTitle(letter + " - Glasgow City Council");
-        return new AlphabetPage(driver);
     }
 
-    public AlphabetPage selectAlphaLink(){
-        waitForElementToBeClickable(aToZPageLink);
-        click(aToZPageLink);
-        confirmTitle("A to Z - Glasgow City Council");
-        return new AlphabetPage(driver);
+    public void selectAlphaLink(){
+        selectLink(aToZPageLink,"A to Z - Glasgow City Council");
     }
 
-    public ContactPage selectContactsLink() {
-        waitForElementToBeClickable(contactUsPageLink);
-        click(contactUsPageLink);
-        waitForPage("Contact Us - Glasgow City Council");
-        return new ContactPage(driver);
+    public void selectContactsLink() {
+        selectLink(contactUsPageLink,"Contact Us - Glasgow City Council");
     }
 
-    public void selectFromDropDown(By element, String option) {
-        Select dropdown = new Select(driver.findElement(element));
-        dropdown.selectByVisibleText(option);
+    //NAVIGATION
+
+    public void navigateTo(String url, String title) {
+        driver.navigate().to(url);
+        driver.switchTo().activeElement();
+        //waitForElementToBeClickable(cookies);
+        //click(cookies);
+        confirmTitle(title);
     }
 
-    public void selectRadioButtonOption(By radioElement, String option){
-        List<WebElement> radioButtons = driver.findElements(radioElement);
-        for (WebElement radioButton : radioButtons) {
-            if (radioButton.getText().equalsIgnoreCase(option)) {
-                radioButton.click();
-                break;
-            }
-        }
+    //ASSERTIONS
+
+    public void confirmTitle(String title) {
+        assertTrue(driver.getTitle().contains(title));
     }
+
 }

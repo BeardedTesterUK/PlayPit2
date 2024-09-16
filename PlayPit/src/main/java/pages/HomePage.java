@@ -9,36 +9,27 @@ public class HomePage extends BasePage{
         super(driver);
     }
 
-    private By payIt = By.id("hometoptasks_item0_tab");
-    private By councilTaxPaymentTab = By.xpath("//span[normalize-space()='Council Tax']");
-    private By glasgowCC = By.linkText("MyGlasgowCC");
-    private By councilTaxLink = By.linkText("Council Tax/Benefits");
+    private final By payItButton = By.id("hometoptasks_item0_tab");
+    private final By councilTaxPaymentTab = By.xpath("//span[normalize-space()='Council Tax']");
+    private final By glasgowCC = By.linkText("MyGlasgowCC");
+    private final By councilTaxLink = By.linkText("Council Tax/Benefits");
 
-    public void selectPaymentLink() {
-        waitForElementToBeClickable(payIt);
-        click(payIt);
-        //waitForPage("Pay It - Glasgow City Council");
-        //return new PaymentPage(driver);
+    public void selectPaymentButton() {
+        waitForElementToBeClickable(payItButton);
+        click(payItButton);
     }
 
-    public CouncilTaxBenefitsPage selectCouncilTaxTab(){
-        waitForElementToBeClickable(councilTaxPaymentTab);
-        click(councilTaxLink);
-        waitForPage("Glasgow City Council - Data Entry");
-        return new CouncilTaxBenefitsPage(driver);
+    public void selectCouncilTaxPaymentLink(){
+        selectLink(councilTaxPaymentTab, "Glasgow City Council - Data Entry");
     }
 
-    public MyGlasgowPage selectMyGlasgowLink(){
-        waitForElementToBeClickable(glasgowCC);
-        click(glasgowCC);
-        waitForPage("MyGlasgowCC - Glasgow City Council");
-        return new MyGlasgowPage(driver);
+    public void selectMyGlasgowLink(){
+        selectLink(glasgowCC, "MyGlasgowCC - Glasgow City Council");
     }
 
-    public CouncilTaxBenefitsPage selectCouncilTaxLink(){
-        waitForElementToBeClickable(councilTaxLink);
-        click(councilTaxLink);
-        waitForPage("Council Tax/Benefits - Glasgow City Council");
-        return new CouncilTaxBenefitsPage(driver);
+    //NEW TEST METHODS
+
+    public void selectCouncilTaxBenefitsLink(){
+        selectLink(councilTaxLink, "Council Tax/Benefits - Glasgow City Council");
     }
 }

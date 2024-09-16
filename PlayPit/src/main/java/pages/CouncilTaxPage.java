@@ -9,12 +9,11 @@ public class CouncilTaxPage extends BasePage {
         super(driver);
     }
 
-    private By payCouncilTaxLink = By.linkText("Pay Council Tax");
+    private final By payCouncilTaxLink = By.linkText("Pay Council Tax");
 
-    public PaymentPage selectPayCouncilTax () {
+    public void selectPayCouncilTaxNew() {
         waitForElementToBeClickable(payCouncilTaxLink);
         click(payCouncilTaxLink);
         waitForPage("Pay It - Glasgow City Council");
-        return new PaymentPage(driver);
     }
 }

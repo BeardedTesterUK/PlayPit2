@@ -10,7 +10,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class DriverFactory {
 
     public static WebDriver getChromeDriver(){
-        //System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);

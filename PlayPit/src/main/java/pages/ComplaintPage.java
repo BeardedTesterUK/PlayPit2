@@ -5,22 +5,22 @@ import org.openqa.selenium.WebDriver;
 
 public class ComplaintPage extends BasePage {
 
-    private By titleBox = By.id("Application_Honorific");
-    private By firstNameField = By.id("Application_FirstName");
-    private By surnameField = By.id("Application_Surname");
-    private By emailField = By.id("Application_Email");
-    private By confirmEmailField = By.id("Application_ConfirmEmail");
-    private By houseNumberField = By.id("Application_Gazetteer_HouseNumber");
-    private By streetField = By.id("Application_Gazetteer_Street");
-    private By cityField = By.id("Application_Gazetteer_CityOrTown");
-    private By postcodeField = By.id("Application_Gazetteer_Postcode");
-    private By sexRadioButton = By.xpath("//label[contains(@for,'Application_Sex')]");
-    private By ageBox = By.id("Application_Age");
-    private By disabilityRadioButton = By.xpath("//label[contains(@for,'Application_rblDisabled')]");
-    private By ethnicOriginBox = By.id("Application_EthnicOrigin");
-    private By commentField = By.id("Application_Comments");
-    private By responseRadioButton = By.xpath("//label[contains(@for,'Application_Reply')]");
-    private By subEthnicOriginBox = By.id("Application_SubEthnicOrigin");
+    private final By titleBox = By.id("Application_Honorific");
+    private final By firstNameField = By.id("Application_FirstName");
+    private final By surnameField = By.id("Application_Surname");
+    private final By emailField = By.id("Application_Email");
+    private final By confirmEmailField = By.id("Application_ConfirmEmail");
+    private final By houseNumberField = By.id("Application_Gazetteer_HouseNumber");
+    private final By streetField = By.id("Application_Gazetteer_Street");
+    private final By cityField = By.id("Application_Gazetteer_CityOrTown");
+    private final By postcodeField = By.id("Application_Gazetteer_Postcode");
+    private final By sexRadioButton = By.xpath("//label[contains(@for,'Application_Sex')]");
+    private final By ageBox = By.id("Application_Age");
+    private final By disabilityRadioButton = By.xpath("//label[contains(@for,'Application_rblDisabled')]");
+    private final By ethnicOriginBox = By.id("Application_EthnicOrigin");
+    private final By commentField = By.id("Application_Comments");
+    private final By responseRadioButton = By.xpath("//label[contains(@for,'Application_Reply')]");
+    private final By subEthnicOriginBox = By.id("Application_SubEthnicOrigin");
 
 
     public ComplaintPage(WebDriver driver) {
