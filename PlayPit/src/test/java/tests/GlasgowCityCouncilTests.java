@@ -18,23 +18,38 @@ public class GlasgowCityCouncilTests extends BaseTest {
     AlphabetPage alphabet;
     ContactPage contact;
     ComplaintPage complaint;
-    CouncilTaxPage councilTax;
+    CouncilTaxBenefitsPage councilBenefitTax;
+    CouncilTaxPage councilTaxNew;
 
     @Test
     public void payACouncilTaxBill() {
         homepage.selectPaymentLink();
-        payment = new PaymentPage(driver);
-        payment.selectCouncilTax();
+        homepage.selectCouncilTaxTab();
+       // payment = new PaymentPage(driver);
+        //payment.selectCouncilTax();
         councilTaxPayment = new CouncilTaxPaymentPage(driver);
         councilTaxPayment.completePaymentForm();
         councilTaxPayment.clickReturnHomeButton();
     }
 
     @Test
-    public void payCouncilTaxBillFromCouncilTaxPage(){
+    public void payCouncilTaxBillFullJourney() throws InterruptedException {
         homepage.selectCouncilTaxLink();
-        councilTax = new CouncilTaxPage(driver);
-        councilTax.selectPayIt();
+        councilBenefitTax = new CouncilTaxBenefitsPage(driver);
+        councilBenefitTax.selectCouncilTax();
+        councilTaxNew = new CouncilTaxPage(driver);
+        councilTaxNew.selectPayCouncilTax();
+        payment = new PaymentPage(driver);
+        payment.selectCouncilTax();
+        councilTaxPayment = new CouncilTaxPaymentPage(driver);
+        councilTaxPayment.completePaymentForm();
+    }
+
+    @Test
+    public void payCouncilTaxBillFromCouncilTaxPage() throws InterruptedException {
+        homepage.selectCouncilTaxLink();
+        councilBenefitTax = new CouncilTaxBenefitsPage(driver);
+        councilBenefitTax.selectPayIt();
         payment = new PaymentPage(driver);
         payment.selectCouncilTax();
         councilTaxPayment = new CouncilTaxPaymentPage(driver);
@@ -90,10 +105,14 @@ public class GlasgowCityCouncilTests extends BaseTest {
 
     @Test
     public void checkContentsOfAlphabetPage() {
-        homepage.selectLetterSearch("A");
+        //homepage.selectLetterSearch("A");
+        homepage.selectAlphaLink();
         alphabet = new AlphabetPage(driver);
-        int totalSize = alphabet.getListSize();
-        assertEquals("List does not contain all elements", 19, totalSize);
+        //int totalSize = alphabet.getListSize();
+        int totalSize = alphabet.getAlphabetList();
+        assertEquals("List does not contain all elements", 75, totalSize);
+        alphabet.openAbandonedVehiclePage();
+        System.out.println("ABANDONED VEHICLE PAGE DISPLAYED");
     }
 
     @Test

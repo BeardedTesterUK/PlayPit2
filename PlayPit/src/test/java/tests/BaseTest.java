@@ -15,7 +15,7 @@ public class BaseTest {
     public void setUp(){
         driver = getChromeDriver();
         homepage = new HomePage(driver);
-        homepage.navigateTo("https://www.glasgow.gov.uk/home", "Homepage of Glasgow City Council - Glasgow City Council");
+        homepage.navigateTo("https://www.glasgow.gov.uk/", "Glasgow - Glasgow City Council");
     }
 
 //    ONLY WORKS FOR TESTNG

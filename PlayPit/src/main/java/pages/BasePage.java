@@ -18,6 +18,7 @@ public class BasePage {
 
     private By homeButton = By.id("gccLogoTop");
     private By accessibilityPageLink = By.linkText("Accessibility");
+    private By aToZPageLink = By.linkText("A to Z");
     private By contactUsPageLink = By.linkText("Contact Us");
     private By cookiesPageLink = By.linkText("Cookies");
     private By privacyPageLink = By.linkText("Privacy");
@@ -31,6 +32,10 @@ public class BasePage {
         return driver.findElement(locator);
     }
 
+    protected List<WebElement> findAll(By locator){
+        return driver.findElements(locator);
+    }
+
     protected void type(String text, By locator) {
         find(locator).clear();
         find(locator).sendKeys(text);
@@ -38,6 +43,11 @@ public class BasePage {
 
     protected void click(By locator) {
         find(locator).click();
+    }
+
+    public int getListSize(By locator){
+        List<WebElement> allElementList = findAll(locator);
+        return allElementList.size();
     }
 
     protected void waitForPage(String title) {
@@ -71,10 +81,13 @@ public class BasePage {
     public HomePage clickReturnHomeButton() {
         waitForElementToBeClickable(homeButton);
         click(homeButton);
-        confirmTitle("Homepage of Glasgow City Council - Glasgow City Council");
+            if(driver.getTitle().contains("Page not found"))
+                click(By.linkText("Glasgow home"));
+        confirmTitle("Glasgow - Glasgow City Council");
         System.out.println("RETURNING HOME");
         return new HomePage(driver);
     }
+
 
     public String getText(By element) {
         return driver.findElement(element).getText();
@@ -84,6 +97,13 @@ public class BasePage {
         waitForElementToBeClickable(By.linkText(letter));
         click(By.linkText(letter));
         confirmTitle(letter + " - Glasgow City Council");
+        return new AlphabetPage(driver);
+    }
+
+    public AlphabetPage selectAlphaLink(){
+        waitForElementToBeClickable(aToZPageLink);
+        click(aToZPageLink);
+        confirmTitle("A to Z - Glasgow City Council");
         return new AlphabetPage(driver);
     }
 

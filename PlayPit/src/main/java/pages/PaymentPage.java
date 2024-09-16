@@ -12,10 +12,11 @@ public class PaymentPage extends BasePage{
     private By housingBenefitsPaymentButton = By.xpath("//button[text()='Housing Benefit Overpayment']");
     private By rentPaymentButton = By.xpath("//button[text()='Homeless Temporary Accommodation']");
 
-    public CouncilTaxPaymentPage selectCouncilTax() {
+    public CouncilTaxPaymentPage selectCouncilTax() throws InterruptedException {
         waitForElementToBeClickable(councilTaxPaymentButton);
         click(councilTaxPaymentButton);
-        confirmTitle("Glasgow City Council - Account Search");
+        confirmTitle("Glasgow City Council - Data Entry");
+        Thread.sleep(5000);
         return new CouncilTaxPaymentPage(driver);
     }
 

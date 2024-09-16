@@ -9,15 +9,23 @@ public class HomePage extends BasePage{
         super(driver);
     }
 
-    private By payIt = By.linkText("Pay It");
+    private By payIt = By.id("hometoptasks_item0_tab");
+    private By councilTaxPaymentTab = By.xpath("//span[normalize-space()='Council Tax']");
     private By glasgowCC = By.linkText("MyGlasgowCC");
-    private By councilTaxLink = By.linkText("Council Tax");
+    private By councilTaxLink = By.linkText("Council Tax/Benefits");
 
-    public PaymentPage selectPaymentLink() {
+    public void selectPaymentLink() {
         waitForElementToBeClickable(payIt);
         click(payIt);
-        waitForPage("Pay It - Glasgow City Council");
-        return new PaymentPage(driver);
+        //waitForPage("Pay It - Glasgow City Council");
+        //return new PaymentPage(driver);
+    }
+
+    public CouncilTaxBenefitsPage selectCouncilTaxTab(){
+        waitForElementToBeClickable(councilTaxPaymentTab);
+        click(councilTaxLink);
+        waitForPage("Glasgow City Council - Data Entry");
+        return new CouncilTaxBenefitsPage(driver);
     }
 
     public MyGlasgowPage selectMyGlasgowLink(){
@@ -27,10 +35,10 @@ public class HomePage extends BasePage{
         return new MyGlasgowPage(driver);
     }
 
-    public CouncilTaxPage selectCouncilTaxLink(){
+    public CouncilTaxBenefitsPage selectCouncilTaxLink(){
         waitForElementToBeClickable(councilTaxLink);
         click(councilTaxLink);
-        waitForPage("Council Tax - Glasgow City Council");
-        return new CouncilTaxPage(driver);
+        waitForPage("Council Tax/Benefits - Glasgow City Council");
+        return new CouncilTaxBenefitsPage(driver);
     }
 }
