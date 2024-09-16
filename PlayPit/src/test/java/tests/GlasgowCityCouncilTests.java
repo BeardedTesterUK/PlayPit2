@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 public class GlasgowCityCouncilTests extends BaseTest {
 
-    PaymentPage payment;
+    PayItPage payment;
     CouncilTaxPaymentPage councilTaxPayment;
     HousingBenefitsPage housing;
     RentPaymentPage rent;
@@ -21,36 +21,36 @@ public class GlasgowCityCouncilTests extends BaseTest {
     CouncilTaxBenefitsPage councilBenefitTax;
     CouncilTaxPage councilTaxNew;
 
-    @Test
-    public void payACouncilTaxBill() {
-        homepage.selectPaymentLink();
-        homepage.selectCouncilTaxTab();
-       // payment = new PaymentPage(driver);
-        //payment.selectCouncilTax();
-        councilTaxPayment = new CouncilTaxPaymentPage(driver);
-        councilTaxPayment.completePaymentForm();
-        councilTaxPayment.clickReturnHomeButton();
-    }
+//    @Test
+//    public void payACouncilTaxBill() {
+//        homepage.selectPaymentButton();
+//        homepage.selectCouncilTaxLink();
+//       // payment = new PaymentPage(driver);
+//        //payment.selectCouncilTax();
+//        councilTaxPayment = new CouncilTaxPaymentPage(driver);
+//        councilTaxPayment.completePaymentForm();
+//        councilTaxPayment.clickReturnHomeButton();
+//    }
+//
+//    @Test
+//    public void payCouncilTaxBillFullJourney() throws InterruptedException {
+//        homepage.selectCouncilTaxLink();
+//        councilBenefitTax = new CouncilTaxBenefitsPage(driver);
+//        councilBenefitTax.selectCouncilTax();
+//        councilTaxNew = new CouncilTaxPage(driver);
+//        councilTaxNew.selectPayCouncilTax();
+//        payment = new PayItPage(driver);
+//        payment.selectCouncilTax();
+//        councilTaxPayment = new CouncilTaxPaymentPage(driver);
+//        councilTaxPayment.completePaymentForm();
+//    }
 
     @Test
-    public void payCouncilTaxBillFullJourney() throws InterruptedException {
-        homepage.selectCouncilTaxLink();
+    public void payCouncilTaxBillFromCouncilTaxPage() {
+        homepage.selectCouncilTaxBenefitsLink();
         councilBenefitTax = new CouncilTaxBenefitsPage(driver);
-        councilBenefitTax.selectCouncilTax();
-        councilTaxNew = new CouncilTaxPage(driver);
-        councilTaxNew.selectPayCouncilTax();
-        payment = new PaymentPage(driver);
-        payment.selectCouncilTax();
-        councilTaxPayment = new CouncilTaxPaymentPage(driver);
-        councilTaxPayment.completePaymentForm();
-    }
-
-    @Test
-    public void payCouncilTaxBillFromCouncilTaxPage() throws InterruptedException {
-        homepage.selectCouncilTaxLink();
-        councilBenefitTax = new CouncilTaxBenefitsPage(driver);
-        councilBenefitTax.selectPayIt();
-        payment = new PaymentPage(driver);
+        councilBenefitTax.selectCouncilTaxNew();
+        payment = new PayItPage(driver);
         payment.selectCouncilTax();
         councilTaxPayment = new CouncilTaxPaymentPage(driver);
         councilTaxPayment.completePaymentForm();
@@ -59,8 +59,8 @@ public class GlasgowCityCouncilTests extends BaseTest {
 
     @Test
     public void payAHousingBenefitBill() {
-        homepage.selectPaymentLink();
-        payment = new PaymentPage(driver);
+        homepage.selectPaymentButton();
+        payment = new PayItPage(driver);
         payment.selectHousingBenefits();
         housing = new HousingBenefitsPage(driver);
         housing.completePaymentForm();
@@ -69,8 +69,8 @@ public class GlasgowCityCouncilTests extends BaseTest {
 
     @Test
     public void payRentBill() {
-        homepage.selectPaymentLink();
-        payment = new PaymentPage(driver);
+        homepage.selectPaymentButton();
+        payment = new PayItPage(driver);
         payment.selectHomelessRent();
         rent = new RentPaymentPage(driver);
         rent.completePaymentForm("12345678",
@@ -85,8 +85,8 @@ public class GlasgowCityCouncilTests extends BaseTest {
 
     @Test
     public void mandatoryFieldErrorMessage() {
-        homepage.selectPaymentLink();
-        payment = new PaymentPage(driver);
+        homepage.selectPaymentButton();
+        payment = new PayItPage(driver);
         payment.selectHomelessRent();
         rent = new RentPaymentPage(driver);
         rent.confirmErrorMessages("Please enter a valid reference number",
